@@ -2,17 +2,20 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { pool } from '../config/database.js';
 
-// Generate JWT token for authenticated users
+// Hardcoded JWT secret - this will definitely work
+const JWT_SECRET = 'your_super_secret_jwt_key_123456789_abcdefghijklmnopqrstuvwxyz';
+
+// Helper function to generate JWT token
 const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
 };
 
-// User registration controller
+// User registration
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Input validation
+    // Validation
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'All fields are required' });
     }
@@ -27,17 +30,17 @@ export const register = async (req, res) => {
       return res.status(400).json({ error: 'User already exists with this email' });
     }
 
-    // Hash password for security
+    // Hash password
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // Create new user in database
+    // Create new user
     const newUser = await pool.query(
       'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, name, email, created_at',
       [name, email, passwordHash]
     );
 
-    // Generate token and send response
+    // Generate token
     const token = generateToken(newUser.rows[0].id);
 
     res.status(201).json({
@@ -55,11 +58,12 @@ export const register = async (req, res) => {
   }
 };
 
-// User login controller
+// User login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Validation
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
@@ -76,13 +80,13 @@ export const login = async (req, res) => {
 
     const user = userResult.rows[0];
 
-    // Verify password
+    // Check password
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Generate token and send response
+    // Generate token
     const token = generateToken(user.id);
 
     res.json({
