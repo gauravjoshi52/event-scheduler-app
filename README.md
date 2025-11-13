@@ -23,8 +23,6 @@ Protected routes for authenticated users only
 📅 Event Management
 Create events with title, description, date, time, and location
 
-Edit & delete your own events
-
 Browse all events - visible to all users
 
 Event details with comprehensive information
@@ -40,6 +38,7 @@ Flexible management - leave events anytime
 
 🚀 Live Demo
 Frontend: http://localhost:3000
+
 Backend API: http://localhost:5000
 
 🛠️ Tech Stack
@@ -61,8 +60,6 @@ Backend:
 
 🐘 PostgreSQL database
 
-🔷 Sequelize ORM
-
 🛡️ CORS & security middleware
 
 📦 Installation
@@ -75,7 +72,7 @@ npm or yarn
 
 1. Clone the Repository
 bash
-git clone https://github.com/your-username/event-scheduler.git
+git clone https://github.com/gauravjoshi52/event-scheduler.git
 cd event-scheduler
 2. Backend Setup
 bash
@@ -245,14 +242,6 @@ npm test            # Run test suite
 🤝 Contributing
 We welcome contributions! Please follow these steps:
 
-Fork the project
-
-Create a feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some AmazingFeature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
 Open a Pull Request
 
 Development Guidelines
@@ -292,15 +281,9 @@ Check REACT_APP_API_URL in frontend .env
 This project is developed as part of a PERN stack assignment. Feel free to use it for learning purposes.
 
 👨‍💻 Developer
-Your Name
+Gaurav Joshi
 
-GitHub: @your-username
+GitHub: @gauravjoshi52
 
-Email: your.email@example.com
-
-⭐ If you find this project helpful, please give it a star!
-
-Built with ❤️ using the PERN Stack
-
-
+Email: gj292002bj@gmail.com
 
